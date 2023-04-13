@@ -5,6 +5,7 @@ import Express from "express"
 import Morgan from "morgan"
 import Cors from "cors"
 import ApiError from "../lib/Api.exceptions.js"
+import {resolve} from "path"
 
 const server = new Express()
 
@@ -17,6 +18,10 @@ server.use(Morgan("dev"))
 server.use(Express.json())
 server.use("/student", studentRouter)
 server.use("/company", companyRouter)
+
+server.get("*", (req,res,next)=>{
+    res.sendFile(resolve("build", "index.html"))
+})
 
 server.use((err, req, res, next) => {
     console.error(err)
