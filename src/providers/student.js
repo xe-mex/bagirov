@@ -6,7 +6,7 @@ class Student {
 
     async registration(mail, password, name, last_name) {
         return this._dbClient.query(`
-            insert into "Students"(mail, password, name, last_name) values ($1, $2, $3, $4)
+            insert into "Students"(mail, password, name, last_name) values ($1, $2, $3, $4) returning id, name, last_name
         `, [mail, password, name, last_name])
     }
 

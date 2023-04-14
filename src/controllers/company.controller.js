@@ -3,14 +3,12 @@ import CompanyService from "../services/company.service.js"
 class CompanyController {
     async registration(req, res, next) {
         try{
-            res.json({
-                status: await CompanyService.registration({
-                    email: req.body?.email,
-                    password: req.body?.password,
-                    name: req.body?.name,
-                    full_name: req.body?.full_name
-                })
-            })
+            res.json(await CompanyService.registration({
+                email: req.body?.email,
+                password: req.body?.password,
+                name: req.body?.name,
+                full_name: req.body?.full_name
+            }))
         }catch (e) {
             next(e)
         }

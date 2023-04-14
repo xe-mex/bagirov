@@ -4,7 +4,7 @@ import Company from "../providers/company.js"
 import {validate} from "email-validator"
 
 class CompanyService {
-    async registration({mail: email, password, full_name, name}) {
+    async registration({email, password, full_name, name}) {
         if (!email || !password || !full_name || !name || !validate(email)){
             throw ApiError.badRequest("invalid data")
         }
@@ -13,7 +13,7 @@ class CompanyService {
         if (!answer.rowCount){
             throw ApiError.conflict("Company already exists")
         }
-        return true
+        return answer.rows[0]
     }
 
     async login({email, password}){

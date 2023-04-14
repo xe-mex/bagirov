@@ -4,7 +4,7 @@ import Student from "../providers/student.js"
 import {validate} from "email-validator"
 
 class StudentService {
-    async registration({mail: email, password, name, last_name}) {
+    async registration({email, password, name, last_name}) {
         if (!email || !password || !name || !validate(email)){
             throw ApiError.badRequest("invalid data")
         }
@@ -13,7 +13,7 @@ class StudentService {
         if (!answer.rowCount){
             throw ApiError.conflict("user already exists")
         }
-        return true
+        return answer.rows[0]
     }
 
     async login({email, password}){
